@@ -4,11 +4,12 @@
   "description": "Create a web application to manage your book collection",
   "main": "server.js",
   "scripts": {
-    "heroku-postbuild": "knex migrate:latest",
+    "heroku-postbuild": "knex migrate:rollback; knex migrate:latest; knex seed:run;",
     "knex": "knex",
     "lint": "eslint  --ignore-pattern public/js/vendor",
     "nf": "nf start",
-    "start": "nodemon server.js",
+    "start": " node server.js",
+    "nodemon": "node server.js",
     "test": "mocha"
   },
   "repository": {
@@ -26,16 +27,22 @@
   },
   "homepage": "https://github.com/gschool/galvanize-bookshelf#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "bcrypt-as-promised": "^1.1.0",
     "body-parser": "^1.15.2",
     "boom": "^3.2.2",
     "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.1",
+    "dotenv": "^2.0.0",
     "express": "^4.15.2",
+    "express-validation": "^1.0.2",
     "humps": "^1.1.0",
+    "joi": "^10.4.1",
     "jsonwebtoken": "^7.1.9",
-    "knex": "^0.11.7",
+    "knex": "^0.11.10",
     "morgan": "^1.7.0",
-    "pg": "^6.0.0"
+    "nodemon": "^1.11.0",
+    "pg": "^6.1.5"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -48,9 +55,6 @@
     "supertest": "^1.2.0"
   },
   "engines": {
-    "node": "7.4.0"
-  },
-  "directories": {
-    "test": "test"
+    "node": "v7.7.2"
   }
 }
