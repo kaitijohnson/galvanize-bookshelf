@@ -71,12 +71,14 @@ router.patch('/books/:id', (req, res, next) => {
 
 //DELETE one book
 router.delete('/books/:id', (req, res, next) => {
+  let body = req.body;
   let id = req.params.id;
   knex('books')
+    .returning(['title', 'author', 'genre', 'description', 'cover_url'])
     .where('id', id)
     .del()
     .then((books) => {
-      res.sendStatus(humps.camelizeKeys(books));
+      res.send(humps.camelizeKeys(books[0]));
     })
 })
 
